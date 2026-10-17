@@ -51,8 +51,11 @@ HandleSymbolOrDeadKey(noneChar, shiftChar, optChar, optShiftChar) {
 }
 
 ; =========================================================================
-; ROW 1: NUMBER ROW & BOUNDS
+; SHORTCUT PROTECTION: Turn off layout intercepts if Control or Windows key is held
 ; =========================================================================
+#HotIf !GetKeyState("LCtrl", "P") && !GetKeyState("RCtrl", "P") && !GetKeyState("LWin", "P") && !GetKeyState("RWin", "P")
+
+; ROW 1: NUMBER ROW & BOUNDS
 *SC029::HandleSymbolOrDeadKey("§", "±", "§", "±")  ; Key below Esc
 *SC002::HandleSymbolOrDeadKey("1", "!", "", "¡")  ; 1
 *SC003::HandleSymbolOrDeadKey("2", "`"", "@", "ﬁ") ; 2
@@ -67,9 +70,7 @@ HandleSymbolOrDeadKey(noneChar, shiftChar, optChar, optShiftChar) {
 *SC00C::HandleSymbolOrDeadKey("'", "?", "§", "¿")  ; ' ? key
 *SC00D::HandleSymbolOrDeadKey("+", "*", "±", "◊")  ; + * key (Left of Backspace)
 
-; =========================================================================
 ; ROW 2: LETTERS & END KEYS
-; =========================================================================
 *SC010::SendLayerChar("q", "Q", "œ", "Œ", "q")
 *SC011::SendLayerChar("w", "W", "∑", "∑", "w")
 *SC012::SendLayerChar("e", "E", "æ", "Æ", "e")
@@ -95,9 +96,7 @@ HandleSymbolOrDeadKey(noneChar, shiftChar, optChar, optShiftChar) {
     }
 }
 
-; =========================================================================
 ; ROW 3: LETTERS & END KEYS
-; =========================================================================
 *SC01E::SendLayerChar("a", "A", "å", "Å", "a")  
 *SC01F::SendLayerChar("s", "S", "ß", "ß", "s")
 *SC020::SendLayerChar("d", "D", "∂", "∆", "d")
@@ -123,9 +122,7 @@ HandleSymbolOrDeadKey(noneChar, shiftChar, optChar, optShiftChar) {
 }
 *SC02B::HandleSymbolOrDeadKey("\", "|", "‹", "›")  ; Key beside Enter
 
-; =========================================================================
 ; ROW 4: LETTERS & EXTRA ISO KEY
-; =========================================================================
 *SC056::HandleSymbolOrDeadKey("<", ">", "≤", "≥")  ; ISO key beside Left Shift
 *SC02C::SendLayerChar("z", "Z", "Ω", "Ω", "z")
 *SC02D::SendLayerChar("x", "X", "«", "»", "x")
@@ -137,6 +134,8 @@ HandleSymbolOrDeadKey(noneChar, shiftChar, optChar, optShiftChar) {
 *SC033::HandleSymbolOrDeadKey(",", ";", "“", "”")
 *SC034::HandleSymbolOrDeadKey(".", ":", "‘", "·") 
 *SC035::HandleSymbolOrDeadKey("-", "_", "—", "–")
+
+#HotIf ; Reset conditions
 
 ; Global escape keys to clear or force-emit accents safely
 *Space:: {
